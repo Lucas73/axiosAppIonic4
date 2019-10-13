@@ -1,9 +1,30 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>contacts</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>contactos</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content padding>
+  <ng-template #loading>
+    <div>
+      <ion-spinner slot="center" color="primary"></ion-spinner>
+    </div>
+  </ng-template>
+  <ion-list *ngIf="!searching; else loading">
+    <ion-item *ngFor="let contact of contacts" [routerLink]="['/profile', contact.id]">
+      <ion-avatar>
+        <img src={{contact.avatar}}>
+      </ion-avatar>
+      <ion-label>
+        {{contact.first_name}}
+        <ion-label>
+          {{contact.last_name}}
+        </ion-label>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)="obtainMoreContacts()">Más contactos</ion-button>
 </ion-content>

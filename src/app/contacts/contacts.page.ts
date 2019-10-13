@@ -1,3 +1,5 @@
+import { Contact } from './../models/Contact';
+import { ContactsService } from './../services/contacts.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactsPage implements OnInit {
 
-  constructor() { }
+  contacts:Contact[] = [];
+  searching:boolean = true;
 
-  ngOnInit() {
+  constructor(private contactsService:ContactsService) {}
+
+  async ngOnInit() {
+    await this.contactsService.obtainAllContacts().subscribe(
+      response =>{
+        this.contacts = response
+        this.searching = false
+      }
+    )
   }
+  obtainMoreContacts(){
+    this.searching = true;
+    let randomNumber:string = String(Math.floor(Math.random() * 4) + 1);
 
+    this.contactsService.obtainAllContacts(randomNumber).subscribe(
+      response => {
+        this.contacts = response;
+        this. searching = false;
+      }
+    )
+  }
 }
