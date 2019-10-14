@@ -33,4 +33,18 @@ export class ContactsService {
      );
      return observable;
    }
+
+   obtainContactDetail(id:string):Observable<Contact>{
+      let observable = Observable.create((observer)=>{
+        axios.get(`/users/${id}`)
+          .then((response)=>{
+            observer.next(response.data.data);
+            observer.complete()
+          })
+          .catch((error)=>{
+            observer.error(error)
+          })
+      })
+      return observable;
+   }
 }

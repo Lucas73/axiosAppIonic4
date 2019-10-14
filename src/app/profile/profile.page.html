@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Detalle Contacto</ion-title>
+    <ion-buttons>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ng-template #loading>
+    <div>
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+  </ng-template>
+  <div *ngIf="!searching; else loading;">
+    <ion-avatar>
+      <img src={{contact.avatar}}>
+    </ion-avatar>
+    <ion-label>
+      {{contact.first_name}}
+      <ion-label color="primary">
+          {{contact.last_name}}
+       </ion-label>
+    </ion-label>
+  </div>
+</ion-content>
